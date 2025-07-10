@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="valentine">
+
+<head>
+  <title>CHRONO</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- DaisyUI prebuilt CSS via unpkg CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet" type="text/css" />
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+
+  <style>
+    h1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    .animate-shimmer {
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* Hide main initially */
+    #main {
+      opacity: 0;
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="bg-base-100 text-base-content font-sans p-6" style="font-family: 'Poppins', sans-serif;">
+  <div id="target">
+    <h1
+      class="text-9xl font-bold text-transparent bg-[linear-gradient(90deg,#f285ba,#eb2b8d,#f285ba)] bg-[length:200%_100%] bg-clip-text animate-shimmer">
+      CHRONO
+    </h1>
+  </div>
+
+  <div id="main" style="animation-fill-mode: forwards;" class="w3-container w3-center w3-animate-opacity">
+    <h1>SET YOUR TIMER</h1>
+    <p>The w3-animate-opacity class fades in an element (0 to 1 opacity in 0.8 seconds).</p>
+    <button class="btn btn-soft btn-primary" style="color:#fbf1f7;">START</button>
+  </div>
+
+  <script>
+    // Fade out 'target' then fade in 'main'
+    function fadeOutAndIn() {
+      const target = document.getElementById('target');
+      const main = document.getElementById('main');
+      let opacity = 1;
+
+      function fadeOut() {
+        opacity -= 0.05;
+        if (opacity <= 0) {
+          opacity = 0;
+          target.style.display = 'none';
+          main.style.display = 'block'; 
+          return;
+        }
+        target.style.opacity = opacity;
+        requestAnimationFrame(fadeOut);
+      }
+      fadeOut();
+    }
+    // Trigger fade on click for demo
+    document.getElementById('target').addEventListener('click', fadeOutAndIn);
+
+  </script>
+
+</body>
+
+</html>
