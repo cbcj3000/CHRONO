@@ -13,6 +13,10 @@
     <!-- Poppins Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <audio id="myAudio">
+            <source src="alarm.mp3" type="audio/mpeg">
+    </audio>
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -176,17 +180,19 @@
         let countdownInterval = null;
 
         document.getElementById('modalCloseBtn').addEventListener('click', () => {
+            var x = document.getElementById("myAudio"); 
             const count = document.getElementById('count');
             const main = document.getElementById('main');
-
+            x.pause();
             // Hide countdown
             count.style.opacity = 0;
             // Show main
             main.style.opacity = 1;
         });
 
-
         document.getElementById('startBtn').addEventListener('click', function () {
+            var x = document.getElementById("myAudio"); 
+            
             const h = parseInt(hoursSelect.value) || 0;
             const m = parseInt(minutesSelect.value) || 0;
             const s = parseInt(secondsSelect.value) || 0;
@@ -205,6 +211,7 @@
             if (countdownInterval) clearInterval(countdownInterval);
 
             countdownInterval = setInterval(() => {
+                
                 const now = Date.now();
                 let remaining = Math.max(0, Math.floor((endTime - now) / 1000));
 
@@ -222,6 +229,7 @@
 
                 if (hours === 0 && minutes === 0 && seconds === 0) {
                     clearInterval(countdownInterval);
+                    x.play(); 
                     const modalDialog = document.getElementById('my_modal_1');
                     modalDialog.showModal();
                     count.style.opacity = 0;
