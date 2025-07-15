@@ -2,87 +2,232 @@
 <html lang="en" data-theme="valentine">
 
 <head>
-  <title>CHRONO</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CHRONO</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- DaisyUI prebuilt CSS via unpkg CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet" type="text/css" />
-  <!-- Poppins Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- DaisyUI CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet" />
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    h1 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
 
-    @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-      100% {
-        background-position: 200% 0;
-      }
-    }
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
 
-    .animate-shimmer {
-      animation: shimmer 4s linear infinite;
-    }
+            100% {
+                background-position: 200% 0;
+            }
+        }
 
-    /* Hide main initially */
-    #main {
-      opacity: 0;
-      display: none;
-    }
-  </style>
+        .animate-shimmer {
+            animation: shimmer 4s linear infinite;
+        }
+
+        #main
+         {
+            opacity: 0;
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #count {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #modal {
+            white-space: nowrap;
+            margin:20%
+        }
+
+        h2 {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
-<body class="bg-base-100 text-base-content font-sans p-6" style="font-family: 'Poppins', sans-serif;">
-  <div id="target">
-    <h1
-      class="text-9xl font-bold text-transparent bg-[linear-gradient(90deg,#f285ba,#eb2b8d,#f285ba)] bg-[length:200%_100%] bg-clip-text animate-shimmer">
-      CHRONO
-    </h1>
-  </div>
+<body class="bg-base-100 text-base-content p-6">
+    <div id="target">
+        <h1
+            class="text-9xl font-bold text-transparent bg-[linear-gradient(90deg,#f285ba,#eb2b8d,#f285ba)] bg-[length:200%_100%] bg-clip-text animate-shimmer">
+            CHRONO
+        </h1>
+    </div>
 
-  <div id="main" style="animation-fill-mode: forwards;" class="w3-container w3-center w3-animate-opacity">
-    <h1>SET YOUR TIMER</h1>
-    <p>The w3-animate-opacity class fades in an element (0 to 1 opacity in 0.8 seconds).</p>
-    <button class="btn btn-soft btn-primary" style="color:#fbf1f7;">START</button>
-  </div>
+    <div id="main" class="w3-container w3-center w3-animate-opacity">
+        <h2 class="text-9xl font-bold" style="color:#eb2b8d;">SET YOUR TIMER</h2>
+        <div class="flex flex-col items-center gap-4 p-4">
+            <div class="flex gap-2 text-7xl font-bold">
+                <select id="hours" class="select text-7xl font-bold w-70 h-[5.5rem]"
+                    style="background-color:#f8e4f0; color:#eb2b8d;">
+                    <option disabled selected>HOUR</option>
+                </select>
+                <select id="minutes" class="select text-7xl font-bold w-70 h-[5.5rem]"
+                    style="background-color:#f8e4f0; color:#eb2b8d;">
+                    <option disabled selected>MIN</option>
+                </select>
+                <select id="seconds" class="select text-7xl font-bold w-70 h-[5.5rem]"
+                    style="background-color:#f8e4f0; color:#eb2b8d;">
+                    <option disabled selected>SEC</option>
+                </select>
+            </div>
+            <button id="startBtn" class="btn text-3xl" style="background-color:#eb2b8d; color:#fbf1f7;">
+                START
+            </button>
+        </div>
+    </div>
 
-  <script>
-    // Fade out 'target' then fade in 'main'
-    function fadeOutAndIn() {
-      const target = document.getElementById('target');
-      const main = document.getElementById('main');
-      let opacity = 1;
+    <div id="count" class="opacity-0 transition-opacity duration-500 grid auto-cols-max grid-flow-col gap-5 text-center"
+        style="color:#eb2b8d;">
+        <div class="flex flex-col">
+            <span class="countdown font-mono text-9xl">
+                <span id="c-hours" style="--value:0;">0</span>
+            </span>
+            hours
+        </div>
+        <div class="flex flex-col">
+            <span class="countdown font-mono text-9xl">
+                <span id="c-minutes" style="--value:0;">0</span>
+            </span>
+            min
+        </div>
+        <div class="flex flex-col">
+            <span class="countdown font-mono text-9xl">
+                <span id="c-seconds" style="--value:0;">0</span>
+            </span>
+            sec
+        </div>
+    </div>
 
-      function fadeOut() {
-        opacity -= 0.05;
-        if (opacity <= 0) {
-          opacity = 0;
-          target.style.display = 'none';
-          main.style.display = 'block'; 
-          return;
+    <div id="modal">
+        <dialog id="my_modal_1" class="modal">
+            <div class="modal-box max-w-3xl ">
+                <h3 class="font-bold text-8xl text-center" style="color:#eb2b8d;">START OVER</h3>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button class="btn btn-md btn-primary" id="modalCloseBtn" >CLOSE</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+
+    </div>
+
+    <script>
+        // Fade animation
+        function fadeOutAndIn() {
+            const target = document.getElementById('target');
+            const main = document.getElementById('main');
+            const modal = document.getElementById('modal');
+            let opacity = 1;
+
+            function fadeOut() {
+                opacity -= 0.05;
+                if (opacity <= 0) {
+                    target.style.display = 'none';
+                    main.style.display = 'block';
+                    main.style.opacity = 1;
+                    return;
+                }
+                target.style.opacity = opacity;
+                requestAnimationFrame(fadeOut);
+            }
+            fadeOut();
         }
-        target.style.opacity = opacity;
-        requestAnimationFrame(fadeOut);
-      }
-      fadeOut();
-    }
-    // Trigger fade on click for demo
-    document.getElementById('target').addEventListener('click', fadeOutAndIn);
+        document.getElementById('target').addEventListener('click', fadeOutAndIn);
 
-  </script>
+        // Populate selects
+        const hoursSelect = document.getElementById('hours');
+        const minutesSelect = document.getElementById('minutes');
+        const secondsSelect = document.getElementById('seconds');
+        for (let i = 0; i <= 23; i++) {
+            const opt = new Option(i.toString().padStart(2, '0'), i);
+            hoursSelect.add(opt);
+        }
+        for (let i = 0; i <= 59; i++) {
+            const optMin = new Option(i.toString().padStart(2, '0'), i);
+            const optSec = new Option(i.toString().padStart(2, '0'), i);
+            minutesSelect.add(optMin);
+            secondsSelect.add(optSec);
+        }
 
+        let countdownInterval = null;
+
+        document.getElementById('modalCloseBtn').addEventListener('click', () => {
+            const count = document.getElementById('count');
+            const main = document.getElementById('main');
+
+            // Hide countdown
+            count.style.opacity = 0;
+            // Show main
+            main.style.opacity = 1;
+        });
+
+
+        document.getElementById('startBtn').addEventListener('click', function () {
+            const h = parseInt(hoursSelect.value) || 0;
+            const m = parseInt(minutesSelect.value) || 0;
+            const s = parseInt(secondsSelect.value) || 0;
+            const totalSeconds = h * 3600 + m * 60 + s + 2;
+            if (totalSeconds <= 0) {
+                alert('Please select a time.');
+                return;
+            }
+
+            const endTime = Date.now() + totalSeconds * 1000;
+            const count = document.getElementById('count');
+            count.style.opacity = 1;
+            const main = document.getElementById('main');
+            main.style.opacity = 0;
+            // Clear any previous timer
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            countdownInterval = setInterval(() => {
+                const now = Date.now();
+                let remaining = Math.max(0, Math.floor((endTime - now) / 1000));
+
+                const hours = Math.floor(remaining / 3600);
+                remaining %= 3600;
+                const minutes = Math.floor(remaining / 60);
+                const seconds = remaining % 60;
+
+                document.getElementById('c-hours').textContent = hours;
+                document.getElementById('c-hours').style.setProperty('--value', hours);
+                document.getElementById('c-minutes').textContent = minutes;
+                document.getElementById('c-minutes').style.setProperty('--value', minutes);
+                document.getElementById('c-seconds').textContent = seconds;
+                document.getElementById('c-seconds').style.setProperty('--value', seconds);
+
+                if (hours === 0 && minutes === 0 && seconds === 0) {
+                    clearInterval(countdownInterval);
+                    const modalDialog = document.getElementById('my_modal_1');
+                    modalDialog.showModal();
+                    count.style.opacity = 0;
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 
 </html>
