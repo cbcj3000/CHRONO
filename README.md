@@ -17,14 +17,14 @@ A simple, modern timer application built with DaisyUI and deployed on [GitHub Pa
 - Build Process
 
 **Lessons Learned**
-- Deepened understanding of Tailwind and DaisyUI theming.
+- Deepened understanding of Tailwind and DaisyUI theming
 *Note: I overrode some of the DaisyUI colors as on certain browsers the colors differ but I do show my ability to use DaisyUI*
-- Practiced creating dynamic user interfaces without frameworks.
-- Improved UX by handling state transitions smoothly.
+- Practiced creating dynamic user interfaces without frameworks
+- Improved UX by handling state transitions smoothly
 
 Areas for Improvement
-- Add pause/resume functionality.
-- Enable custom alarm sounds.
+- Add pause/resume functionality
+- Enable custom alarm sounds
 - Improve accessibility
 
 Setup Instructions
@@ -32,4 +32,4 @@ Clone the repository:
 ```git clone https://github.com/cbcj3000/CHRONO.git```
 Navigate to the project folder:
 ```cd chrono```
-Open CHRONO.html in your browser.
+Open CHRONO.html in your browser
