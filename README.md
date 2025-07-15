@@ -9,7 +9,7 @@ A simple, modern timer application built with DaisyUI and deployed on [GitHub Pa
 
 **Key Features**
 - Custom time selection (hours, minutes, seconds)
-- Animated intro screen
+- Animated intro screen (click anywhere on the screen to see the timer)
 - Countdown display with large, clear numerals
 - Audio notification when time is up
 - Modal dialog prompting to start over
